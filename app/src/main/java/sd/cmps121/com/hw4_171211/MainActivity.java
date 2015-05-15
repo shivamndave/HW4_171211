@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
 
         int resource;
         Context context;
+        TextView _newsLabelTextView;
         TextView _newsUrlTextView;
 
         ArrayList<NewsElement> _items = new ArrayList<NewsElement>();
@@ -75,8 +76,10 @@ public class MainActivity extends Activity {
                 newView = (LinearLayout) convertView;
             }
 
+            _newsLabelTextView = (TextView) newView.findViewById(R.id.newsLabel);
             _newsUrlTextView = (TextView) newView.findViewById(R.id.newsUrl);
-            _newsUrlTextView.setText(siteName);
+            _newsLabelTextView.setText(siteName);
+            _newsUrlTextView.setText(siteUrl);
 
             return newView;
         }
