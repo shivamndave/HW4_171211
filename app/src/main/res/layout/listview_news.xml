@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffc56363"
     android:orientation="vertical"
-    android:paddingBottom="20dp"
-    android:paddingTop="20dp"
-    >
+    android:paddingBottom="@dimen/listview_news_padding"
+    android:paddingLeft="@dimen/listview_news_padding"
+    android:paddingRight="@dimen/listview_news_padding"
+    android:paddingTop="@dimen/listview_news_padding">
 
     <TextView
         android:id="@+id/newsLabel"
@@ -13,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="News Site Name"
-        android:textColor="#000000" />
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/newsUrl"
@@ -21,6 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="News Site URL"
-        android:textColor="#78000000" />
+        android:textColor="#ffdddddd" />
 
 </LinearLayout>

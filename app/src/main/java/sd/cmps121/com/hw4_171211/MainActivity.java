@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
 
     }
 
+    // Adapter for the list of news sites, uses the custom NewsElement
     private class MyAdapter extends ArrayAdapter<NewsElement> {
 
         int resource;
@@ -63,17 +64,22 @@ public class MainActivity extends Activity {
                 newView = (LinearLayout) convertView;
             }
 
+            // Each list item itself displays a name and url that you would
+            // go to if you click on it
             _newsLabelTextView = (TextView) newView.findViewById(R.id.newsLabel);
             _newsUrlTextView = (TextView) newView.findViewById(R.id.newsUrl);
             _newsLabelTextView.setText(siteName);
             _newsUrlTextView.setText(siteUrl);
 
+            // Sets temporary variables for the url and name, which will
+            // be used inside the onClick
             final String tempSiteUrl = siteUrl;
             final String tempSiteName = siteName;
 
             newView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // Sets the intent for the ReaderActivity where we pass the site url and name
                     Intent readerActivity = new Intent(MainActivity.this, ReaderActivity.class);
                     readerActivity.putExtra("url", tempSiteUrl);
                     readerActivity.putExtra("name", tempSiteName);
@@ -89,6 +95,9 @@ public class MainActivity extends Activity {
     protected MyAdapter _adapter;
     protected ListView _newListView;
 
+    // On Create we initialize the list of news sites
+    // (NewsElements) and then load those into an adapter
+    // which is then fed into a ListView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -101,17 +110,25 @@ public class MainActivity extends Activity {
         _newListView.setAdapter(_adapter);
     }
 
+    // Used to create each NewsElement that is put into the list adapter
+    // A news element is made up of a URL and name of the site
     ArrayList<NewsElement> createNewsList() {
         ArrayList<NewsElement> tempL = new ArrayList<NewsElement>();
         NewsElement newsOne = createNewsElement("SFGate", "http://m.sfgate.com");
-        NewsElement newsTwo = createNewsElement("BBC News", "http://m.bbc.com");
-        NewsElement newsThree = createNewsElement("CNN", "http://www.cnn.com");
+        NewsElement newsTwo = createNewsElement("The Guardian", "http://www.theguardian.com/us");
+        NewsElement newsThree = createNewsElement("Santa Cruz Sentinel", "http://www.santacruzsentinel.com");
+        NewsElement newsFour = createNewsElement("ESPN", "http://espn.go.com");
+        NewsElement newsFive = createNewsElement("CNN", "http://www.cnn.com");
+
         tempL.add(newsOne);
         tempL.add(newsTwo);
         tempL.add(newsThree);
+        tempL.add(newsFour);
+        tempL.add(newsFive);
         return tempL;
     }
 
+    // Actually does the setting of each of the NewsElement variables
     NewsElement createNewsElement(String name, String url) {
         NewsElement tempNE = new NewsElement();
         tempNE.newsLabel = name;

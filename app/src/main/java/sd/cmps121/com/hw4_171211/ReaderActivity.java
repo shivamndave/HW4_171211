@@ -1,29 +1,27 @@
 package sd.cmps121.com.hw4_171211;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * Created by shivamndave on 5/13/15.
- */
 public class ReaderActivity extends Activity {
 
     static final public String MYPREFS = "myprefs";
@@ -35,13 +33,14 @@ public class ReaderActivity extends Activity {
 
     WebView myWebView;
     TextView _siteNameView;
+    ProgressBar _loadingSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
 
-
+        // Gets the necessary site's name and URL
         if (bundle != null) {
             MY_WEBPAGE = bundle.getString("url");
             MY_WEBNAME = bundle.getString("name");
@@ -52,9 +51,13 @@ public class ReaderActivity extends Activity {
         setContentView(R.layout.activity_reader);
         myWebView = (WebView) findViewById(R.id.webView1);
         _siteNameView = (TextView) findViewById(R.id.readerSiteName);
+        _loadingSpinner = (ProgressBar) findViewById(R.id.loadingNotif);
 
+        // Used to set the site name in the bottom nav
         _siteNameView.setText(MY_WEBNAME);
 
+        // Creates the webview iteself and allows javascript
+        // loads the URL also
         myWebView.setWebViewClient(new WebViewClient());
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -64,6 +67,7 @@ public class ReaderActivity extends Activity {
 
         myWebView.setWebViewClient(new MyWebViewClient());
 
+        // Initializes and does the onClick for the share button
         Button v = (Button) findViewById(R.id.shareButton);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +81,9 @@ public class ReaderActivity extends Activity {
         });
     }
 
+    // Used to see if a website is not on the current domain,
+    // if so you can open it in the webview, otherwise open it in the default browser
+    // Source: http://developer.android.com/guide/webapps/webview.html#HandlingNavigation
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -92,8 +99,23 @@ public class ReaderActivity extends Activity {
             startActivity(intent);
             return true;
         }
+
+        // When a page is finished, hide the loading spinner
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            _loadingSpinner.setVisibility(View.GONE);
+            super.onPageFinished(view, url);
+        }
+
+        // When a page is started, start the loading spinner
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            _loadingSpinner.setVisibility(View.VISIBLE);
+            super.onPageStarted(view, url, favicon);
+        }
     }
 
+    // Used to interact with JavaScript and the button created
     public class JavaScriptInterface {
         Context mContext; // Having the context is useful for lots of things,
         // like accessing preferences.
@@ -119,6 +141,8 @@ public class ReaderActivity extends Activity {
 
     }
 
+    // Used to go back through history if available. Santa Cruz Sentinel is a
+    // bit weird with this
     // Source: http://developer.android.com/guide/webapps/webview.html#HandlingNavigation
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -134,6 +158,7 @@ public class ReaderActivity extends Activity {
         return super.onKeyDown(keyCode, event);
     }
 
+    // Pauses the webview and stores the URL
     @Override
     public void onPause() {
 

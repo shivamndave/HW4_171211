@@ -2,12 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffd77273"
+    android:paddingLeft="@dimen/activity_main_padding"
+    android:paddingBottom="@dimen/activity_main_padding"
+    android:paddingTop="@dimen/activity_main_padding"
+    android:paddingRight="@dimen/activity_main_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#FFFFFF"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:text="News App"/>
 
     <ListView
         android:id="@+id/newsList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="#ffd77273"
+        android:dividerHeight="10dp">
     </ListView>
 
 </LinearLayout>

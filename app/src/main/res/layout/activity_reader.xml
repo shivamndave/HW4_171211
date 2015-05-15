@@ -23,14 +23,26 @@
         android:gravity="center"
         android:text="Share" />
 
+    <ProgressBar
+        android:id="@+id/loadingNotif"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-50dp"
+        android:gravity="center_vertical"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/readerSiteName"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="-50dp"
+        android:layout_toLeftOf="@+id/loadingNotif"
         android:gravity="center_vertical"
         android:textColor="#FFFFFF" />
 </RelativeLayout>
