@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -50,7 +51,7 @@ public class ReaderActivity extends Activity {
         }
         setContentView(R.layout.activity_reader);
         myWebView = (WebView) findViewById(R.id.webView1);
-        _siteNameView = (TextView)findViewById(R.id.readerSiteName);
+        _siteNameView = (TextView) findViewById(R.id.readerSiteName);
 
         _siteNameView.setText(MY_WEBNAME);
 
@@ -62,6 +63,18 @@ public class ReaderActivity extends Activity {
         myWebView.loadUrl(MY_WEBPAGE);
 
         myWebView.setWebViewClient(new MyWebViewClient());
+
+        Button v = (Button) findViewById(R.id.shareButton);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, myWebView.getUrl());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
     }
 
     private class MyWebViewClient extends WebViewClient {
@@ -85,7 +98,9 @@ public class ReaderActivity extends Activity {
         Context mContext; // Having the context is useful for lots of things,
         // like accessing preferences.
 
-        /** Instantiate the interface and set the context */
+        /**
+         * Instantiate the interface and set the context
+         */
         JavaScriptInterface(Context c) {
             mContext = c;
         }
