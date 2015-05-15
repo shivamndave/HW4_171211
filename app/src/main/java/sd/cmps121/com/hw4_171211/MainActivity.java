@@ -81,6 +81,18 @@ public class MainActivity extends Activity {
             _newsLabelTextView.setText(siteName);
             _newsUrlTextView.setText(siteUrl);
 
+            final String tempSiteUrl = siteUrl;
+
+            newView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent readerActivity = new Intent(MainActivity.this, ReaderActivity.class);
+                    readerActivity.putExtra("url", tempSiteUrl);
+                    startActivity(readerActivity);
+                }
+            });
+
+
             return newView;
         }
     }
