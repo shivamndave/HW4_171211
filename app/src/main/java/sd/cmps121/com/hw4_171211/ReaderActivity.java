@@ -2,7 +2,9 @@ package sd.cmps121.com.hw4_171211;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -58,7 +60,25 @@ public class ReaderActivity extends Activity {
         myWebView.addJavascriptInterface(new JavaScriptInterface(this), "Android");
         // Binds the Javascript interface
         myWebView.loadUrl(MY_WEBPAGE);
-        myWebView.loadUrl("javascript:alert(\"Hello\")");
+
+        myWebView.setWebViewClient(new MyWebViewClient());
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            String parsedUrlHost = Uri.parse(url).getHost();
+            String parsedMyWebPageHost = Uri.parse(MY_WEBPAGE).getHost();
+
+            if (parsedUrlHost.equals(parsedMyWebPageHost)) {
+                // This is my web site, so do not override; let my WebView load the page
+                return false;
+            }
+            // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+            return true;
+        }
     }
 
     public class JavaScriptInterface {
@@ -98,7 +118,6 @@ public class ReaderActivity extends Activity {
         // This allows us to get back to the MainActivity
         return super.onKeyDown(keyCode, event);
     }
-
 
     @Override
     public void onPause() {

@@ -1,32 +1,19 @@
 package sd.cmps121.com.hw4_171211;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by shivamndave on 5/13/15.
@@ -118,7 +105,7 @@ public class MainActivity extends Activity {
         ArrayList<NewsElement> tempL = new ArrayList<NewsElement>();
         NewsElement newsOne = createNewsElement("SFGate", "http://m.sfgate.com");
         NewsElement newsTwo = createNewsElement("BBC News", "http://m.bbc.com");
-        NewsElement newsThree = createNewsElement("Santa Cruz Sentinel", "http://santacruzsentinel.com");
+        NewsElement newsThree = createNewsElement("CNN", "http://www.cnn.com");
         tempL.add(newsOne);
         tempL.add(newsTwo);
         tempL.add(newsThree);

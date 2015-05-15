@@ -32,5 +32,5 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="-50dp"
         android:gravity="center_vertical"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF" />
 </RelativeLayout>
