@@ -15,9 +15,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by shivamndave on 5/13/15.
- */
 public class MainActivity extends Activity {
 
     private class NewsElement {
